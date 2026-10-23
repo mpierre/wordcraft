@@ -2368,3 +2368,17 @@
 	More tabs	更多索引標籤
 # #3013: Insert Table of Figures
 	Include label and number	包含標籤和編號
+# #785: Dictate
+	Dictation Language	聽寫語言
+	Dictation Status	聽寫狀態
+	Type Dictated Text	輸入聽寫文字
+	dictation needs the desktop app	聽寫需要桌面應用程式
+	Dictation	聽寫
+	Detect automatically	自動偵測
+	Downloading the speech model…	正在下載語音模型…
+	Starting…	正在啟動…
+	Stopping…	正在停止…
+	Listening…	正在聆聽…
+	Typing what you said…	正在輸入你說的話…
+	The language you speak	你說的語言
+	Stop dictating	停止聽寫

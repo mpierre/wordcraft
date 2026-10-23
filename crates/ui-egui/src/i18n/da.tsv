@@ -2599,3 +2599,17 @@ preview	Title	Titel
 	Full Screen View	Full Screen View
 	Personal Templates	Personal Templates
 	Underline Color	Underline Color
+# #785: Dictate
+	Dictation Language	Dikteringssprog
+	Dictation Status	Dikteringsstatus
+	Type Dictated Text	Skriv dikteret tekst
+	dictation needs the desktop app	diktering kræver skrivebordsappen
+	Dictation	Diktering
+	Detect automatically	Registrer automatisk
+	Downloading the speech model…	Henter talemodellen…
+	Starting…	Starter…
+	Stopping…	Stopper…
+	Listening…	Lytter…
+	Typing what you said…	Skriver det, du sagde…
+	The language you speak	Det sprog, du taler
+	Stop dictating	Stop diktering

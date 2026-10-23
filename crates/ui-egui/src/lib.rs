@@ -49,6 +49,7 @@ pub mod dialogs_ribbon;
 pub mod dialogs_smart_art;
 pub mod dialogs_table_style;
 pub mod dialogs_templates;
+pub mod dictation;
 pub mod equation_tab;
 /// The built-in file browser, for desktops without a system file dialog (#576).
 #[cfg(not(target_arch = "wasm32"))]
@@ -177,6 +178,9 @@ pub struct Services {
     /// used while File › Options names none. File › New lists personal templates from it and Save
     /// as Word Template starts in it. `None` (web) hides personal templates.
     pub templates_dir: Option<std::path::PathBuf>,
+    /// Desktop: Dictate's speech service (the microphone and a local speech model). `None`
+    /// greys out Home › Voice › Dictate.
+    pub dictation: Option<dictation::Start>,
 }
 
 /// How Save in the Save Changes prompt went.
@@ -634,6 +638,8 @@ pub struct WordApp {
     /// Read Aloud: the start of the sentence the caret was last moved to, and the last error shown.
     pub(crate) read_aloud_at: Option<wordcraft_engine::doc::Pos>,
     pub(crate) read_aloud_error: Option<String>,
+    /// Dictate: the speech service while it runs.
+    pub(crate) dictation: Option<dictation::Session>,
     /// The file the document was last explicitly saved to in this session; AutoSave writes only
     /// there. A file that was merely opened isn't rewritten until the user saves it: saving drops
     /// whatever WordCraft can't represent (content controls, charts, macros…).
@@ -681,7 +687,8 @@ impl SaveChoice {
 }
 
 impl WordApp {
-    pub fn new(session: Session, services: Services) -> Self {
+    pub fn new(mut session: Session, services: Services) -> Self {
+        session.dictation.available = services.dictation.is_some();
         // Numeral › System follows the system locale, found here rather than in layout.
         if let Some(tag) = sys_locale::get_locale() {
             wordcraft_engine::set_system_locale(&tag);
@@ -746,6 +753,7 @@ impl WordApp {
             ctx: None,
             read_aloud_at: None,
             read_aloud_error: None,
+            dictation: None,
             autosave_path: None,
             saves_in_flight: Vec::new(),
             awaiting_save: None,
@@ -2172,6 +2180,7 @@ impl WordApp {
         self.drain_control(ctx);
         zotero::poll(self, ctx);
         read_aloud::poll(self, ctx);
+        dictation::poll(self, ctx);
         self.clear_stale_change_picture();
         let _ = self.poll_file_dialog();
         self.drain_inbox();
@@ -2410,6 +2419,7 @@ impl WordApp {
         colors::show(self, &ctx);
         zotero::show_alert(self, &ctx);
         read_aloud::show(self, &ctx);
+        dictation::show(self, &ctx);
         crate::keytips::show(self, &ctx, ui);
         keys::global_shortcuts(self, &ctx);
         self.refocus_after_chrome_click(&ctx);

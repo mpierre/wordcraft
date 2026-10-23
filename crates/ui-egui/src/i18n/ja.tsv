@@ -2367,3 +2367,17 @@
 	More tabs	その他のタブ
 # #3013: Insert Table of Figures
 	Include label and number	ラベルと番号を含める
+# #785: Dictate
+	Dictation Language	ディクテーションの言語
+	Dictation Status	ディクテーションの状態
+	Type Dictated Text	ディクテーションしたテキストを入力
+	dictation needs the desktop app	ディクテーションにはデスクトップアプリが必要です
+	Dictation	ディクテーション
+	Detect automatically	自動検出
+	Downloading the speech model…	音声モデルをダウンロードしています…
+	Starting…	開始しています…
+	Stopping…	停止しています…
+	Listening…	聞き取り中…
+	Typing what you said…	話した内容を入力しています…
+	The language you speak	話す言語
+	Stop dictating	ディクテーションを停止

@@ -2773,3 +2773,17 @@ preview	Title	Пример
 	More tabs	Другие вкладки
 # #3013: Insert Table of Figures
 	Include label and number	Включить подпись и номер
+# #785: Dictate
+	Dictation Language	Язык диктовки
+	Dictation Status	Состояние диктовки
+	Type Dictated Text	Ввести продиктованный текст
+	dictation needs the desktop app	для диктовки нужно настольное приложение
+	Dictation	Диктовка
+	Detect automatically	Определять автоматически
+	Downloading the speech model…	Загрузка речевой модели…
+	Starting…	Запуск…
+	Stopping…	Остановка…
+	Listening…	Слушаю…
+	Typing what you said…	Ввожу сказанное…
+	The language you speak	Язык, на котором вы говорите
+	Stop dictating	Остановить диктовку

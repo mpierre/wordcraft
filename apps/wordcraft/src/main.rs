@@ -15,6 +15,8 @@ mod apple_events;
 mod clipboard;
 mod control_server;
 mod default_apps;
+#[cfg(any(target_os = "macos", target_os = "linux", target_os = "windows"))]
+mod dictation;
 mod file_dialogs;
 #[cfg(any(target_os = "windows", target_os = "macos", test))]
 mod graphics;
@@ -246,6 +248,7 @@ fn services(file_dialog: file_dialogs::Hook, ctx: &egui::Context) -> Services {
         print_native: Some(print::submit()),
         clipboard_picture: Some(Box::new(clipboard::picture)),
         make_default_app: default_apps::hook(),
+        dictation: dictation_hook(),
         // Personal templates live in `Templates` in the settings folder (#2852), made on first save.
         templates_dir: wordcraft_control_key::settings_dir().map(|d| d.join("Templates")),
         animations_enabled: Some(animations::hook(ctx)),
@@ -256,6 +259,14 @@ fn services(file_dialog: file_dialogs::Hook, ctx: &egui::Context) -> Services {
         clipboard_formats: Some(Box::new(clipboard::formats)),
         ..Default::default()
     }
+}
+
+/// Dictate's speech service (`dictation`), where the platform has one.
+fn dictation_hook() -> Option<wordcraft_ui_egui::dictation::Start> {
+    #[cfg(any(target_os = "macos", target_os = "linux", target_os = "windows"))]
+    return dictation::hook();
+    #[cfg(not(any(target_os = "macos", target_os = "linux", target_os = "windows")))]
+    None
 }
 
 /// Window, Dock and taskbar icon.

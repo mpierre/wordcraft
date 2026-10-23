@@ -9,6 +9,7 @@ pub mod column;
 pub mod connectors;
 pub mod controls;
 pub mod design;
+pub mod dictation;
 pub mod draw;
 pub mod edit;
 pub mod equation;
@@ -103,6 +104,7 @@ pub fn registry() -> Registry {
     v.extend(user_templates::specs());
     v.extend(protect::specs());
     v.extend(speech::specs());
+    v.extend(dictation::specs());
     v.extend(controls::specs());
     Registry::new(v)
 }

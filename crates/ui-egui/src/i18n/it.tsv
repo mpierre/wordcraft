@@ -2799,3 +2799,17 @@ template	Letter	Lettera
 	More tabs	Altre schede
 # #3013: Insert Table of Figures
 	Include label and number	Includi etichetta e numero
+# #785: Dictate
+	Dictation Language	Lingua di dettatura
+	Dictation Status	Stato della dettatura
+	Type Dictated Text	Digita il testo dettato
+	dictation needs the desktop app	la dettatura richiede l’app desktop
+	Dictation	Dettatura
+	Detect automatically	Rileva automaticamente
+	Downloading the speech model…	Download del modello vocale…
+	Starting…	Avvio…
+	Stopping…	Arresto…
+	Listening…	In ascolto…
+	Typing what you said…	Scrittura di ciò che hai detto…
+	The language you speak	La lingua che parli
+	Stop dictating	Interrompi la dettatura

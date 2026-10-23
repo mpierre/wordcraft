@@ -2770,3 +2770,17 @@
 	More tabs	További lapok
 # #3013: Insert Table of Figures
 	Include label and number	Címkével és számmal
+# #785: Dictate
+	Dictation Language	Diktálás nyelve
+	Dictation Status	Diktálás állapota
+	Type Dictated Text	Diktált szöveg beírása
+	dictation needs the desktop app	a diktáláshoz az asztali alkalmazás kell
+	Dictation	Diktálás
+	Detect automatically	Automatikus felismerés
+	Downloading the speech model…	A beszédmodell letöltése…
+	Starting…	Indítás…
+	Stopping…	Leállítás…
+	Listening…	Figyelek…
+	Typing what you said…	A elhangzottak beírása…
+	The language you speak	Az Ön által beszélt nyelv
+	Stop dictating	Diktálás befejezése

@@ -2401,3 +2401,17 @@
 	More tabs	Veel vahekaarte
 # #3013: Insert Table of Figures
 	Include label and number	Lisa silt ja number
+# #785: Dictate
+	Dictation Language	Dikteerimise keel
+	Dictation Status	Dikteerimise olek
+	Type Dictated Text	Sisesta dikteeritud tekst
+	dictation needs the desktop app	dikteerimiseks on vaja töölauarakendust
+	Dictation	Dikteerimine
+	Detect automatically	Tuvasta automaatselt
+	Downloading the speech model…	Kõnemudeli allalaadimine…
+	Starting…	Käivitamine…
+	Stopping…	Peatamine…
+	Listening…	Kuulan…
+	Typing what you said…	Kirjutan, mida ütlesid…
+	The language you speak	Keel, mida räägid
+	Stop dictating	Lõpeta dikteerimine

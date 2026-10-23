@@ -2764,3 +2764,17 @@
 	More tabs	Още раздели
 # #3013: Insert Table of Figures
 	Include label and number	Включване на етикета и номера
+# #785: Dictate
+	Dictation Language	Език за диктуване
+	Dictation Status	Състояние на диктуването
+	Type Dictated Text	Въвеждане на диктуван текст
+	dictation needs the desktop app	диктуването изисква настолното приложение
+	Dictation	Диктуване
+	Detect automatically	Автоматично разпознаване
+	Downloading the speech model…	Изтегляне на речевия модел…
+	Starting…	Стартиране…
+	Stopping…	Спиране…
+	Listening…	Слушам…
+	Typing what you said…	Въвеждам казаното…
+	The language you speak	Езикът, на който говорите
+	Stop dictating	Спиране на диктуването

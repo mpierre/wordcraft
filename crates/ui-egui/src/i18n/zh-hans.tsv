@@ -2379,3 +2379,17 @@
 	More tabs	更多选项卡
 # #3013: Insert Table of Figures
 	Include label and number	包含标签和编号
+# #785: Dictate
+	Dictation Language	听写语言
+	Dictation Status	听写状态
+	Type Dictated Text	键入听写文本
+	dictation needs the desktop app	听写需要桌面应用
+	Dictation	听写
+	Detect automatically	自动检测
+	Downloading the speech model…	正在下载语音模型…
+	Starting…	正在启动…
+	Stopping…	正在停止…
+	Listening…	正在聆听…
+	Typing what you said…	正在输入你说的话…
+	The language you speak	你说的语言
+	Stop dictating	停止听写

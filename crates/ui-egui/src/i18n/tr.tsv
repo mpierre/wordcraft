@@ -2772,3 +2772,17 @@ preview	Title	Örnek
 	More tabs	Diğer sekmeler
 # #3013: Insert Table of Figures
 	Include label and number	Etiketi ve numarayı ekle
+# #785: Dictate
+	Dictation Language	Dikte dili
+	Dictation Status	Dikte durumu
+	Type Dictated Text	Dikte edilen metni yaz
+	dictation needs the desktop app	dikte için masaüstü uygulaması gerekir
+	Dictation	Dikte
+	Detect automatically	Otomatik algıla
+	Downloading the speech model…	Konuşma modeli indiriliyor…
+	Starting…	Başlatılıyor…
+	Stopping…	Durduruluyor…
+	Listening…	Dinleniyor…
+	Typing what you said…	Söyledikleriniz yazılıyor…
+	The language you speak	Konuştuğunuz dil
+	Stop dictating	Dikteyi durdur

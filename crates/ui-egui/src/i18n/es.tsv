@@ -2729,3 +2729,17 @@ preview	Title	Título
 	More tabs	Más pestañas
 # #3013: Insert Table of Figures
 	Include label and number	Incluir rótulo y número
+# #785: Dictate
+	Dictation Language	Idioma de dictado
+	Dictation Status	Estado del dictado
+	Type Dictated Text	Escribir texto dictado
+	dictation needs the desktop app	el dictado necesita la aplicación de escritorio
+	Dictation	Dictado
+	Detect automatically	Detectar automáticamente
+	Downloading the speech model…	Descargando el modelo de voz…
+	Starting…	Iniciando…
+	Stopping…	Deteniendo…
+	Listening…	Escuchando…
+	Typing what you said…	Escribiendo lo que ha dicho…
+	The language you speak	El idioma que habla
+	Stop dictating	Detener el dictado

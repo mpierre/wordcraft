@@ -2763,3 +2763,17 @@ preview	Title	Naslov
 	{names} and {n} more	{names} and {n} more
 	{name} options	{name} options
 	{width} × {height} pixels	{width} × {height} pixels
+# #785: Dictate
+	Dictation Language	Jezik nareka
+	Dictation Status	Stanje nareka
+	Type Dictated Text	Vnesi narekovano besedilo
+	dictation needs the desktop app	narek zahteva namizno aplikacijo
+	Dictation	Narek
+	Detect automatically	Samodejno zaznaj
+	Downloading the speech model…	Prenašanje govornega modela…
+	Starting…	Zaganjanje…
+	Stopping…	Ustavljanje…
+	Listening…	Poslušam…
+	Typing what you said…	Vnašanje izgovorjenega…
+	The language you speak	Jezik, ki ga govorite
+	Stop dictating	Ustavi narek

@@ -2766,3 +2766,17 @@ preview	Title	Ukázka
 	More tabs	Další karty
 # #3013: Insert Table of Figures
 	Include label and number	Zahrnout popisek a číslo
+# #785: Dictate
+	Dictation Language	Jazyk diktování
+	Dictation Status	Stav diktování
+	Type Dictated Text	Napsat diktovaný text
+	dictation needs the desktop app	diktování vyžaduje desktopovou aplikaci
+	Dictation	Diktování
+	Detect automatically	Rozpoznat automaticky
+	Downloading the speech model…	Stahování řečového modelu…
+	Starting…	Spouštění…
+	Stopping…	Zastavování…
+	Listening…	Poslouchám…
+	Typing what you said…	Píšu, co jste řekli…
+	The language you speak	Jazyk, kterým mluvíte
+	Stop dictating	Ukončit diktování

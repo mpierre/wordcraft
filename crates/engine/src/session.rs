@@ -464,6 +464,8 @@ pub struct Session {
     pub ui_requests: Vec<Value>,
     /// Read Aloud player (Review › Speech).
     pub read_aloud: crate::speech::ReadAloud,
+    /// Dictate (Home › Voice): on or off, the language, and the recogniser.
+    pub dictation: crate::dictation::Dictation,
     /// Preferences the front end saves between runs.
     pub prefs: Prefs,
     /// The system region (#838): the paper a new blank document starts on, the default
@@ -716,6 +718,7 @@ impl Session {
             ribbon: crate::RibbonLayout::default(),
             editing_lang: None,
             read_aloud: Default::default(),
+            dictation: Default::default(),
             password: None,
             #[cfg(not(target_arch = "wasm32"))]
             recovery: None,
@@ -1296,6 +1299,7 @@ impl Session {
             ui_requests: _,
             document_id: _,
             read_aloud: _,
+            dictation: _,
             prefs: _,
             system_region: _,
             keymap: _,

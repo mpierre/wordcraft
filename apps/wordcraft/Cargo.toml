@@ -59,6 +59,24 @@ zbus = { version = "5", default-features = false, features = ["async-io", "block
 # `wayland-data-control` feature, at this version.
 wl-clipboard-rs = "0.9"
 
+# Dictate (#785): whisper.cpp for local speech recognition (MIT; its C++ is built with cmake,
+# which the build machines need), and SHA-256 to check the downloaded model. Not on the BSDs,
+# which have no microphone path yet.
+[target.'cfg(any(target_os = "macos", target_os = "linux", target_os = "windows"))'.dependencies]
+whisper-rs = { version = "=0.16.0", default-features = false, features = ["log_backend"] }
+sha2 = { workspace = true }
+
+# Dictate's microphone on macOS and Windows (Core Audio, WASAPI): cpal's safe API. Linux streams
+# from the desktop's recorder instead (`dictation/audio.rs`), so no ALSA headers are needed.
+[target.'cfg(any(target_os = "macos", target_os = "windows"))'.dependencies]
+cpal = "0.18"
+
+# Apple silicon and recent Intel Macs run the speech model on the GPU.
+[target.'cfg(target_os = "macos")'.dependencies.whisper-rs]
+version = "=0.16.0"
+default-features = false
+features = ["log_backend", "metal"]
+
 [target.'cfg(target_os = "windows")'.dependencies]
 # The upstream default-apps button opens Windows Settings; printing uses craft-print instead.
 open = "5"

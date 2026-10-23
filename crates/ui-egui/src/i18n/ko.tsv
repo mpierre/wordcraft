@@ -2617,3 +2617,17 @@ preview	Title	제목
 	More tabs	탭 더 보기
 # #3013: Insert Table of Figures
 	Include label and number	레이블 및 번호 포함
+# #785: Dictate
+	Dictation Language	받아쓰기 언어
+	Dictation Status	받아쓰기 상태
+	Type Dictated Text	받아쓴 텍스트 입력
+	dictation needs the desktop app	받아쓰기에는 데스크톱 앱이 필요합니다
+	Dictation	받아쓰기
+	Detect automatically	자동 감지
+	Downloading the speech model…	음성 모델 다운로드 중…
+	Starting…	시작하는 중…
+	Stopping…	중지하는 중…
+	Listening…	듣는 중…
+	Typing what you said…	말한 내용을 입력하는 중…
+	The language you speak	말하는 언어
+	Stop dictating	받아쓰기 중지

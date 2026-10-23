@@ -2366,3 +2366,17 @@
 	More tabs	Weitere Registerkarten
 # #3013: Insert Table of Figures
 	Include label and number	Bezeichnung und Nummer einbeziehen
+# #785: Dictate
+	Dictation Language	Diktiersprache
+	Dictation Status	Diktierstatus
+	Type Dictated Text	Diktierten Text eingeben
+	dictation needs the desktop app	Diktieren erfordert die Desktop-App
+	Dictation	Diktieren
+	Detect automatically	Automatisch erkennen
+	Downloading the speech model…	Sprachmodell wird heruntergeladen…
+	Starting…	Wird gestartet…
+	Stopping…	Wird beendet…
+	Listening…	Hört zu…
+	Typing what you said…	Gesprochenes wird geschrieben…
+	The language you speak	Die Sprache, die Sie sprechen
+	Stop dictating	Diktieren beenden

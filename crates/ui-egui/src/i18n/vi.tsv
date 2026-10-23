@@ -2814,3 +2814,17 @@ template	Letter	Thư
 	More tabs	Các tab khác
 # #3013: Insert Table of Figures
 	Include label and number	Bao gồm nhãn và số
+# #785: Dictate
+	Dictation Language	Ngôn ngữ đọc chính tả
+	Dictation Status	Trạng thái đọc chính tả
+	Type Dictated Text	Nhập văn bản đọc chính tả
+	dictation needs the desktop app	đọc chính tả cần ứng dụng máy tính
+	Dictation	Đọc chính tả
+	Detect automatically	Tự động phát hiện
+	Downloading the speech model…	Đang tải mô hình giọng nói…
+	Starting…	Đang bắt đầu…
+	Stopping…	Đang dừng…
+	Listening…	Đang nghe…
+	Typing what you said…	Đang nhập những gì bạn nói…
+	The language you speak	Ngôn ngữ bạn nói
+	Stop dictating	Dừng đọc chính tả

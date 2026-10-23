@@ -42,6 +42,10 @@
   <true/>
   <key>NSRequiresAquaSystemAppearance</key>
   <false/>
+  <!-- Dictate (Home › Voice) listens through the microphone; macOS asks the user first with
+       this text, and stops an app that uses the microphone without it. -->
+  <key>NSMicrophoneUsageDescription</key>
+  <string>WordCraft listens while you dictate and types what you say. The speech is recognised on this Mac and never sent anywhere.</string>
   <key>NSHumanReadableCopyright</key>
   <string>Copyright © the WordCraft authors. MIT OR Apache-2.0.</string>
 

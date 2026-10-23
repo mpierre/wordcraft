@@ -2802,3 +2802,17 @@ template	Letter	Brev
 	More tabs	Fler flikar
 # #3013: Insert Table of Figures
 	Include label and number	Ta med etikett och nummer
+# #785: Dictate
+	Dictation Language	Dikteringsspråk
+	Dictation Status	Status för diktering
+	Type Dictated Text	Skriv dikterad text
+	dictation needs the desktop app	diktering kräver skrivbordsappen
+	Dictation	Diktering
+	Detect automatically	Identifiera automatiskt
+	Downloading the speech model…	Hämtar talmodellen…
+	Starting…	Startar…
+	Stopping…	Stoppar…
+	Listening…	Lyssnar…
+	Typing what you said…	Skriver det du sa…
+	The language you speak	Språket du talar
+	Stop dictating	Sluta diktera

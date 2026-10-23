@@ -2795,3 +2795,17 @@ preview	Title	Tytuł
 	This document has no bookmarks.	This document has no bookmarks.
 	Type a page number, or +2 / -1.	Type a page number, or +2 / -1.
 	Wait for the print job to finish submitting before closing.	Wait for the print job to finish submitting before closing.
+# #785: Dictate
+	Dictation Language	Język dyktowania
+	Dictation Status	Stan dyktowania
+	Type Dictated Text	Wpisz podyktowany tekst
+	dictation needs the desktop app	dyktowanie wymaga aplikacji komputerowej
+	Dictation	Dyktowanie
+	Detect automatically	Wykryj automatycznie
+	Downloading the speech model…	Pobieranie modelu mowy…
+	Starting…	Uruchamianie…
+	Stopping…	Zatrzymywanie…
+	Listening…	Słuchanie…
+	Typing what you said…	Wpisywanie tego, co powiedziano…
+	The language you speak	Język, w którym mówisz
+	Stop dictating	Zakończ dyktowanie

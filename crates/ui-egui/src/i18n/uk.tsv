@@ -2379,3 +2379,17 @@
 	More tabs	Інші вкладки
 # #3013: Insert Table of Figures
 	Include label and number	Додавати мітку й номер
+# #785: Dictate
+	Dictation Language	Мова диктування
+	Dictation Status	Стан диктування
+	Type Dictated Text	Ввести продиктований текст
+	dictation needs the desktop app	для диктування потрібна настільна програма
+	Dictation	Диктування
+	Detect automatically	Визначати автоматично
+	Downloading the speech model…	Завантаження мовленнєвої моделі…
+	Starting…	Запуск…
+	Stopping…	Зупинка…
+	Listening…	Слухаю…
+	Typing what you said…	Вводжу сказане…
+	The language you speak	Мова, якою ви говорите
+	Stop dictating	Зупинити диктування

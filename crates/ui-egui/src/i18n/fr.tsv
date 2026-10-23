@@ -2775,3 +2775,17 @@ template	Letter	Lettre
 	More tabs	Plus d'onglets
 # #3013: Insert Table of Figures
 	Include label and number	Inclure l’étiquette et le numéro
+# #785: Dictate
+	Dictation Language	Langue de dictée
+	Dictation Status	État de la dictée
+	Type Dictated Text	Saisir le texte dicté
+	dictation needs the desktop app	la dictée nécessite l’application de bureau
+	Dictation	Dictée
+	Detect automatically	Détecter automatiquement
+	Downloading the speech model…	Téléchargement du modèle vocal…
+	Starting…	Démarrage…
+	Stopping…	Arrêt…
+	Listening…	Écoute…
+	Typing what you said…	Saisie de ce que vous avez dit…
+	The language you speak	La langue que vous parlez
+	Stop dictating	Arrêter la dictée

@@ -2762,3 +2762,17 @@ template	Letter	Scrisoare
 	cm	cm
 	mm	mm
 	pi	pi
+# #785: Dictate
+	Dictation Language	Limba dictării
+	Dictation Status	Starea dictării
+	Type Dictated Text	Introdu textul dictat
+	dictation needs the desktop app	dictarea necesită aplicația desktop
+	Dictation	Dictare
+	Detect automatically	Detectează automat
+	Downloading the speech model…	Se descarcă modelul de vorbire…
+	Starting…	Se pornește…
+	Stopping…	Se oprește…
+	Listening…	Ascult…
+	Typing what you said…	Scriu ce ai spus…
+	The language you speak	Limba pe care o vorbești
+	Stop dictating	Oprește dictarea
