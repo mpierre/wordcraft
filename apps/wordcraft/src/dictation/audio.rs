@@ -103,9 +103,10 @@ fn microphone() -> Result<Capture, String> {
     // `pw-record` writes raw samples to a pipe only with `--raw` (PipeWire 0.3.75 and later);
     // older ones write WAV, which they refuse to send down a pipe, and exit. PipeWire also serves
     // `parecord` (through its PulseAudio service) and `arecord`, so one of them usually works.
+    // `parecord` otherwise hands over its sound two seconds at a time.
     const RECORDERS: &[(&str, &[&str])] = &[
         ("pw-record", &["--raw", "--rate", "16000", "--channels", "1", "--format", "s16", "-"]),
-        ("parecord", &["--raw", "--format=s16le", "--rate=16000", "--channels=1"]),
+        ("parecord", &["--raw", "--latency-msec=100", "--format=s16le", "--rate=16000", "--channels=1"]),
         ("arecord", &["-q", "-t", "raw", "-f", "S16_LE", "-r", "16000", "-c", "1"]),
     ];
     let mut tried = Vec::new();
