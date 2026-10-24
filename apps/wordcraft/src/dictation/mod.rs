@@ -122,12 +122,14 @@ fn run(events: &Events, language: &str, stop: &AtomicBool, context: &Mutex<Strin
             }
             return Ok(());
         }
+        // Nothing at all from the microphone counts as silence too, so a recorder that never
+        // sends doesn't leave dictation listening forever.
         let chunk = match mic.chunks.recv_timeout(Duration::from_millis(100)) {
-            Ok(c) => c,
-            Err(RecvTimeoutError::Timeout) => continue,
+            Ok(c) => Some(c),
+            Err(RecvTimeoutError::Timeout) => None,
             Err(RecvTimeoutError::Disconnected) => return Err("the microphone stopped".into()),
         };
-        heard_anything |= chunk.iter().any(|s| *s != 0.0);
+        heard_anything |= chunk.as_ref().is_some_and(|c| c.iter().any(|s| *s != 0.0));
         if !heard_anything && opened.elapsed() > SILENT_MIC {
             return Err(if cfg!(target_os = "macos") {
                 "WordCraft can't hear the microphone: allow it in System Settings › Privacy & Security › Microphone".into()
@@ -135,6 +137,7 @@ fn run(events: &Events, language: &str, stop: &AtomicBool, context: &Mutex<Strin
                 "the microphone sends no sound: check that it's connected and not muted".into()
             });
         }
+        let Some(chunk) = chunk else { continue };
         let samples = resampler.push(&chunk);
         if last_level.elapsed() >= Duration::from_millis(80) {
             events.send(Event::Level((rms(&samples) * 8.0).min(1.0)));

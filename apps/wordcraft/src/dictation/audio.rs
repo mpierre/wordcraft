@@ -2,7 +2,7 @@
 //!
 //! - **macOS and Windows:** the default input device through cpal (Core Audio, WASAPI), whose
 //!   safe API needs no system libraries at build time.
-//! - **Linux:** the desktop's own recorder streaming raw 16 kHz mono PCM to us: `pw-record`
+//! - **Linux:** the desktop's own recorder streaming raw 16 kHz mono PCM to us: `pw-record --raw`
 //!   (PipeWire), else `parecord` (PulseAudio), else `arecord` (ALSA). This is how Read Aloud
 //!   reaches the speakers there too, and it keeps the build free of audio development headers.
 //! - **Tests:** `WORDCRAFT_DICTATION_WAV` names a 16-bit PCM WAV file that is played in as if
@@ -11,6 +11,10 @@
 
 use std::sync::mpsc::{Receiver, channel};
 use std::time::Duration;
+
+/// How long a Linux recorder has to send its first sound before the next one is tried.
+#[cfg(target_os = "linux")]
+const RECORDER_START: Duration = Duration::from_secs(2);
 
 /// Sound from the microphone: mono samples (−1…1) at `rate`.
 pub struct Capture {
@@ -96,27 +100,24 @@ fn microphone() -> Result<Capture, String> {
     use std::io::Read;
     use std::process::{Command, Stdio};
 
+    // `pw-record` writes raw samples to a pipe only with `--raw` (PipeWire 0.3.75 and later);
+    // older ones write WAV, which they refuse to send down a pipe, and exit. PipeWire also serves
+    // `parecord` (through its PulseAudio service) and `arecord`, so one of them usually works.
     const RECORDERS: &[(&str, &[&str])] = &[
-        ("pw-record", &["--rate", "16000", "--channels", "1", "--format", "s16", "-"]),
+        ("pw-record", &["--raw", "--rate", "16000", "--channels", "1", "--format", "s16", "-"]),
         ("parecord", &["--raw", "--format=s16le", "--rate=16000", "--channels=1"]),
         ("arecord", &["-q", "-t", "raw", "-f", "S16_LE", "-r", "16000", "-c", "1"]),
     ];
     let mut tried = Vec::new();
     for (program, args) in RECORDERS {
         let Ok(mut child) = Command::new(program).args(*args).stdin(Stdio::null()).stdout(Stdio::piped()).stderr(Stdio::null()).spawn() else {
-            tried.push(*program);
+            tried.push(format!("{program}: not installed"));
             continue;
         };
         let Some(mut out) = child.stdout.take() else {
             let _ = child.kill();
             continue;
         };
-        // A recorder that can't reach the sound server exits at once.
-        std::thread::sleep(Duration::from_millis(150));
-        if let Ok(Some(_)) = child.try_wait() {
-            tried.push(*program);
-            continue;
-        }
         let (tx, rx) = channel();
         let spawned = std::thread::Builder::new().name("dictation-mic".into()).spawn(move || {
             let mut buf = [0u8; 3200];
@@ -137,14 +138,25 @@ fn microphone() -> Result<Capture, String> {
                 }
             }
         });
+        let child = ChildGuard(child);
         if spawned.is_err() {
-            let _ = child.kill();
             return Err("couldn't start reading the microphone".into());
         }
-        log::info!("dictation: recording with {program}");
-        return Ok(Capture { rate: 16_000, chunks: rx, _source: Source::Process(ChildGuard(child)) });
+        // A recorder only counts once sound arrives: one that can't reach the sound server, or
+        // doesn't know an option, exits without any. The first chunk is dropped (a tenth of a
+        // second, before anyone speaks).
+        match rx.recv_timeout(RECORDER_START) {
+            Ok(_) => {
+                log::info!("dictation: recording with {program}");
+                return Ok(Capture { rate: 16_000, chunks: rx, _source: Source::Process(child) });
+            }
+            Err(_) => tried.push(format!("{program}: no sound")),
+        }
     }
-    Err(format!("no sound recorder worked ({}); install PipeWire's pw-record, PulseAudio's parecord or ALSA's arecord", tried.join(", ")))
+    Err(format!(
+        "no sound recorder worked ({}); install PipeWire's pw-record (1.0 or later), PulseAudio's parecord (pulseaudio-utils) or ALSA's arecord (alsa-utils)",
+        tried.join(", ")
+    ))
 }
 
 /// 16-bit PCM WAV: (rate, mono samples).
