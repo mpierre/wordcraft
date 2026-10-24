@@ -9,7 +9,7 @@
 //!   spoken into the microphone in real time, followed by silence, so dictation can be checked
 //!   end to end without a microphone or a person.
 
-use std::sync::mpsc::{Receiver, Sender, channel};
+use std::sync::mpsc::{Receiver, channel};
 use std::time::Duration;
 
 /// Sound from the microphone: mono samples (−1…1) at `rate`.
@@ -51,7 +51,7 @@ fn microphone() -> Result<Capture, String> {
     use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
     use cpal::{SampleFormat, SizedSample};
 
-    fn stream<T>(device: &cpal::Device, config: cpal::StreamConfig, tx: Sender<Vec<f32>>) -> Result<cpal::Stream, cpal::Error>
+    fn stream<T>(device: &cpal::Device, config: cpal::StreamConfig, tx: std::sync::mpsc::Sender<Vec<f32>>) -> Result<cpal::Stream, cpal::Error>
     where
         T: SizedSample,
         f32: cpal::FromSample<T>,
