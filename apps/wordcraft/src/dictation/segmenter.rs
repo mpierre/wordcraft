@@ -31,6 +31,20 @@ const NOISE_FACTOR: f32 = 3.0;
 /// Frames over which the room's noise is the quietest one (3 s).
 const NOISE_FRAMES: usize = 100;
 
+/// A phrase: its sound, and how much of it was loud enough to be speech.
+pub struct Phrase {
+    pub samples: Vec<f32>,
+    /// Frames ([`FRAME`]) of speech in it.
+    pub voiced: usize,
+}
+
+impl Phrase {
+    /// Seconds of speech in the phrase (its pauses and the sound before it not counted).
+    pub fn voiced_secs(&self) -> f32 {
+        (self.voiced * FRAME) as f32 / RATE as f32
+    }
+}
+
 #[derive(Default)]
 pub struct Segmenter {
     /// Samples not yet making up a whole frame.
@@ -56,7 +70,7 @@ pub fn rms(s: &[f32]) -> f32 {
 
 impl Segmenter {
     /// Feed 16 kHz mono samples; returns the phrases they finished.
-    pub fn push(&mut self, samples: &[f32]) -> Vec<Vec<f32>> {
+    pub fn push(&mut self, samples: &[f32]) -> Vec<Phrase> {
         let mut done = Vec::new();
         self.partial.extend_from_slice(samples);
         while self.partial.len() >= FRAME {
@@ -69,15 +83,15 @@ impl Segmenter {
     }
 
     /// The phrase being heard, if it has enough speech (at Stop).
-    pub fn finish(&mut self) -> Option<Vec<f32>> {
+    pub fn finish(&mut self) -> Option<Phrase> {
         let mut phrase = self.phrase.take()?;
         phrase.append(&mut self.partial);
         let voiced = std::mem::take(&mut self.voiced);
         self.quiet_run = 0;
-        (voiced >= MIN_VOICED_FRAMES).then_some(phrase)
+        (voiced >= MIN_VOICED_FRAMES).then_some(Phrase { samples: phrase, voiced })
     }
 
-    fn frame(&mut self, frame: Vec<f32>) -> Option<Vec<f32>> {
+    fn frame(&mut self, frame: Vec<f32>) -> Option<Phrase> {
         let level = rms(&frame);
         let noise = self.levels.iter().copied().fold(f32::INFINITY, f32::min);
         let loud = level > (if noise.is_finite() { noise * NOISE_FACTOR } else { 0.0 }).max(MIN_THRESHOLD);
@@ -112,7 +126,7 @@ impl Segmenter {
                     let phrase = self.phrase.take()?;
                     let voiced = std::mem::take(&mut self.voiced);
                     self.quiet_run = 0;
-                    return (voiced >= MIN_VOICED_FRAMES).then_some(phrase);
+                    return (voiced >= MIN_VOICED_FRAMES).then_some(Phrase { samples: phrase, voiced });
                 }
                 None
             }
@@ -182,7 +196,7 @@ mod tests {
         sound.extend(tone(1.0, 0.001));
         let phrases = s.push(&sound);
         assert_eq!(phrases.len(), 1);
-        let len = phrases[0].len() as f32 / RATE as f32;
+        let len = phrases[0].samples.len() as f32 / RATE as f32;
         assert!((1.5..2.6).contains(&len), "{len} s");
         assert!(s.finish().is_none());
     }
@@ -218,7 +232,7 @@ mod tests {
         let phrases = s.push(&sound);
         // The fan's first seconds may pass for a phrase before the bar rises; then only the speech.
         assert!(phrases.len() <= 2, "{}", phrases.len());
-        let last = phrases.last().unwrap().len() as f32 / RATE as f32;
+        let last = phrases.last().unwrap().samples.len() as f32 / RATE as f32;
         assert!(last < 2.5, "{last} s");
     }
 
@@ -238,7 +252,7 @@ mod tests {
         sound.extend(speech(30.0, 0.2));
         let phrases = s.push(&sound);
         assert_eq!(phrases.len(), 1);
-        assert!(phrases[0].len() <= MAX_SAMPLES + FRAME);
+        assert!(phrases[0].samples.len() <= MAX_SAMPLES + FRAME);
     }
 
     #[test]

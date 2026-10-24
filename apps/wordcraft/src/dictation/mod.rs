@@ -1,6 +1,7 @@
 //! Dictate's speech service (#785, #680, #3214): the microphone ([`audio`]), cut into phrases at
 //! the speaker's pauses ([`segmenter`]), each turned into text by a local Whisper model through
-//! whisper.cpp ([`model`]; Metal on Apple silicon, the CPU elsewhere). Speech never leaves the
+//! whisper.cpp ([`model`]; Metal on Apple silicon, the CPU elsewhere), with the text it invents
+//! from scraps of sound dropped ([`filter`]). Speech never leaves the
 //! computer; the only network use is fetching the model the first time.
 //!
 //! Everything runs on a worker thread that reports to the UI through the channel in
@@ -9,6 +10,7 @@
 //! spoken first. The loaded model is kept for the next Dictate, so only the first one waits.
 
 mod audio;
+mod filter;
 mod model;
 mod segmenter;
 
@@ -21,7 +23,7 @@ use std::time::{Duration, Instant};
 use whisper_rs::{FullParams, SamplingStrategy, WhisperContext, WhisperContextParameters};
 use wordcraft_ui_egui::dictation::{Event, Request, Running, Start};
 
-use segmenter::{RATE, Resampler, Segmenter, rms};
+use segmenter::{Phrase, RATE, Resampler, Segmenter, rms};
 
 /// The model loaded by an earlier Dictate (its file and context).
 static MODEL: Mutex<Option<(PathBuf, Arc<WhisperContext>)>> = Mutex::new(None);
@@ -105,11 +107,15 @@ fn run(events: &Events, language: &str, stop: &AtomicBool, context: &Mutex<Strin
     let opened = Instant::now();
     let mut heard_anything = false;
     let mut last_level = Instant::now();
-    let mut phrase_done = |phrase: Vec<f32>| -> Result<(), String> {
+    let mut phrase_done = |phrase: Phrase| -> Result<(), String> {
         events.send(Event::Transcribing);
-        let prompt = context.lock().unwrap_or_else(PoisonError::into_inner).clone();
-        let text = transcribe(&mut state, phrase, language, &prompt)?;
-        if !text.trim().is_empty() {
+        let voiced = phrase.voiced_secs();
+        let before = context.lock().unwrap_or_else(PoisonError::into_inner).clone();
+        // Shown the text before the caret, a short scrap of sound is "heard" as that text
+        // again or a sentence to follow it (`filter`).
+        let prompt = if voiced >= filter::PROMPT_SECS { before.as_str() } else { "" };
+        let text = transcribe(&mut state, phrase.samples, language, prompt)?;
+        if filter::heard(&text, &before, voiced) {
             events.send(Event::Text(text));
         }
         events.send(Event::Listening);
