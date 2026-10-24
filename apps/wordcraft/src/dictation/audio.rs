@@ -131,7 +131,7 @@ fn microphone() -> Result<Capture, String> {
                 if bytes.len() % 2 == 1 {
                     odd = bytes.pop();
                 }
-                let samples = bytes.chunks_exact(2).map(|b| f32::from(i16::from_le_bytes([b[0], b[1]])) / 32768.0).collect();
+                let samples = bytes.as_chunks::<2>().0.iter().map(|&pair| f32::from(i16::from_le_bytes(pair)) / 32768.0).collect();
                 if tx.send(samples).is_err() {
                     break;
                 }
@@ -174,7 +174,7 @@ pub fn read_wav(bytes: &[u8]) -> Result<(u32, Vec<f32>), String> {
             let ch = usize::from(channels);
             let samples = data
                 .chunks_exact(2 * ch)
-                .map(|frame| frame.chunks_exact(2).map(|b| f32::from(i16::from_le_bytes([b[0], b[1]])) / 32768.0).sum::<f32>() / ch as f32)
+                .map(|frame| frame.as_chunks::<2>().0.iter().map(|&pair| f32::from(i16::from_le_bytes(pair)) / 32768.0).sum::<f32>() / ch as f32)
                 .collect();
             return Ok((rate, samples));
         }
